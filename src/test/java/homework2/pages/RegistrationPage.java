@@ -1,8 +1,12 @@
 package homework2.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
@@ -32,11 +36,13 @@ public class RegistrationPage {
             cityDropdown = $("#react-select-4-input");
 
     //actions
+    @Step("open page")
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         return this;
     }
 
+    @Step("check current page is practice form")
     public RegistrationPage checkCurrentPageIsPracticeForm() {
         header.shouldHave(text(FORM_TITLE));
         return this;
@@ -62,6 +68,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("submit form")
     public RegistrationPage submitForm() {
         submitFormButton.click();
         return this;
@@ -122,6 +129,7 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("fill registration form")
     public RegistrationPage fillRegistrationForm(File file) {
         setFirstName();
         setLastName();
@@ -135,6 +143,7 @@ public class RegistrationPage {
         setCurrentAddress();
         selectStateDropdown();
         setCityDropdown();
+        attachPageSource();
         return this;
     }
 
@@ -146,10 +155,16 @@ public class RegistrationPage {
         return this;
     }
 
+    @Step("check result")
     public RegistrationPage checkResult() {
         resultTable.shouldHave(text("Semen Andronaki"), text("andronaki@gmail.com"), text("Male"),
                 text("1234567890"), text("1234567890"), text("10 April,1995"), text("English"),
                 text("Sports"), text("pic.jpg"), text("st Pushkina"), text("Uttar Pradesh Lucknow"));
         return this;
+    }
+
+    @Attachment(value = "Screenshot", type = "text/html", fileExtension = "html")
+    public byte[] attachPageSource() {
+        return WebDriverRunner.source().getBytes(StandardCharsets.UTF_8);
     }
 }

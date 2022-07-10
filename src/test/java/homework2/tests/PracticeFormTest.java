@@ -1,10 +1,16 @@
 package homework2.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.text;
@@ -14,6 +20,7 @@ public class PracticeFormTest {
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = "1600x1080";
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
     @Test
@@ -22,6 +29,16 @@ public class PracticeFormTest {
         fillForm();
         $("#submit").click();
         checkResult();
+    }
+
+    @AfterEach
+    public void afterEach() {
+        attachPageSource();
+    }
+
+    @Attachment(value = "Screenshot", type = "text/html", fileExtension = "html")
+    public byte[] attachPageSource() {
+        return WebDriverRunner.source().getBytes(StandardCharsets.UTF_8);
     }
 
     private void fillForm() {
