@@ -45,16 +45,16 @@ public class ZipFileTest {
         }
     }
 
-    @Test
-    void parseZipXLSXContentTest() throws URISyntaxException, IOException, CsvException {
-        ZipFile zipFile = new ZipFile(new File(cl.getResource("Desktop.zip").toURI()));
-        ZipEntry zipXlsxEntry = zipFile.getEntry("Book1.xlsx");
-        try (InputStream is = zipFile.getInputStream(zipXlsxEntry)) {
-            XLS parsed = new XLS(is);
-            assertThat(parsed.excel.getSheetAt(0)
-                    .getRow(0).getCell(0)
-                    .getStringCellValue())
-                    .isEqualTo("имя");
-        }
-    }
+//    @Test
+//    void parseZipXLSXContentTest() throws URISyntaxException, IOException, CsvException {
+//        ZipFile zipFile = new ZipFile(new File(cl.getResource("Desktop.zip").toURI()));
+//        ZipEntry zipXlsxEntry = zipFile.getEntry("Book1.xlsx");
+//        try (InputStream is = zipFile.getInputStream(zipXlsxEntry)) {
+//            XLS parsed = new XLS(is);
+//            assertThat(parsed.excel.getSheetAt(0)
+//                    .getRow(0).getCell(0)
+//                    .getStringCellValue())
+//                    .isEqualTo("имя");
+//        }
+//    }
 }

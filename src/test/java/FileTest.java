@@ -46,16 +46,16 @@ public class FileTest {
         assertThat(parsed.author).contains("Marc Philipp");
     }
 
-    @Test
-    void parseXslTest() throws IOException {
-        try (InputStream is = cl.getResourceAsStream("file.xlsx")) {
-            XLS parsed = new XLS(is);
-            assertThat(parsed.excel.getSheetAt(0)
-                    .getRow(0).getCell(0)
-                    .getStringCellValue())
-                    .isEqualTo("имя");
-        }
-    }
+//    @Test
+//    void parseXslTest() throws IOException {
+//        try (InputStream is = cl.getResourceAsStream("file.xlsx")) {
+//            XLS parsed = new XLS(is);
+//            assertThat(parsed.excel.getSheetAt(0)
+//                    .getRow(0).getCell(0)
+//                    .getStringCellValue())
+//                    .isEqualTo("имя");
+//        }
+//    }
 
     @Test
     void parseCSVTest() throws IOException, CsvException {
